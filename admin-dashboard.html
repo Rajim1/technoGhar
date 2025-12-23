@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Technoghar Admin</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="sidebar-brand">
+                    <span>⚙</span> TECHNOGHAR
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-item active" onclick="switchTab('dashboard', this)">
+                    <span class="nav-icon">📊</span> Dashboard
+                </div>
+                <div class="nav-item" onclick="switchTab('repairs', this)">
+                    <span class="nav-icon">🔧</span> Active Repairs
+                </div>
+                <div class="nav-item" onclick="switchTab('users', this)">
+                    <span class="nav-icon">👥</span> Users
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="nav-item" onclick="adminLogout()" style="color: #ef4444;">
+                    <span class="nav-icon">🚪</span> Logout
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <div>
+                    <h1 class="page-title" id="pageTitle">Overview</h1>
+                    <p style="color: var(--admin-text-muted);">Welcome back, Admin</p>
+                </div>
+                <div>
+                    <span style="background: #e5e7eb; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">
+                        Today: <span id="currentDate"></span>
+                    </span>
+                </div>
+            </header>
+
+            <!-- DASHBOARD TAB -->
+            <div id="tab-dashboard" class="tab-content active">
+                <!-- KPI Grid -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Active Repairs</div>
+                        <div class="kpi-value" id="kpiTotalRepairs">0</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Registered Users</div>
+                        <div class="kpi-value" id="kpiTotalUsers">0</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Est. Revenue</div>
+                        <div class="kpi-value" id="kpiRevenue">$0</div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity (Reusing Table) -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <div class="table-title">Recent Repairs</div>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Customer</th>
+                                <th>Device</th>
+                                <th>Issue</th>
+                                <th>Status</th>
+                                <th>Received</th>
+                            </tr>
+                        </thead>
+                        <tbody id="repairsTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- REPAIRS TAB (Same content for now, could filter) -->
+            <div id="tab-repairs" class="tab-content">
+                <div class="table-container">
+                    <div class="table-header">
+                        <div class="table-title">All Active Repairs</div>
+                    </div>
+                    <!-- Reusing the main collection from dashboard logic for now -->
+                    <div style="padding: 2rem; color: #666;">
+                        (View and Manage repairs in the Dashboard tab list for now)
+                    </div>
+                </div>
+            </div>
+
+            <!-- USERS TAB -->
+            <div id="tab-users" class="tab-content">
+                <div class="table-container">
+                    <div class="table-header">
+                        <div class="table-title">Registered Customers</div>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Joined</th>
+                                <th>Orders</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script type="module" src="js/admin.js"></script>
+    <script>
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
+
+        function switchTab(tabName, el) {
+            // Update Sidebar
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+
+            // Update Header
+            const titles = {
+                'dashboard': 'Overview',
+                'repairs': 'Repair Management',
+                'users': 'Customer Database'
+            };
+            document.getElementById('pageTitle').textContent = titles[tabName];
+
+            // Show Content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Technoghar</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="circuit-bg"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-back-icon"
+                style="margin-right: 1rem; font-size: 1.5rem; color: var(--text-dark); text-decoration: none;">←</a>
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚙</span>
+                <span class="logo-text">TECHNO<span class="logo-accent">GHAR</span></span>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="check-status.html" class="nav-link">Check Status</a></li>
+                <li><a href="service-request.html" class="nav-link nav-cta">Get Quote</a></li>
+                <li><a href="#" class="nav-link " onclick="handleLogout()"
+                        style="margin-left: 1rem; color: #ef4444;">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="dashboard-hero">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="user-welcome">
+                    <h1 id="welcomeMessage">Welcome back!</h1>
+                    <p>Manage your account and view repair history</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="dashboard-content">
+        <div class="container">
+
+            <!-- User Info Card -->
+            <div class="profile-section" style="margin-bottom: 3rem;">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profileInitials">U</div>
+                    <div class="profile-info">
+                        <h2 id="profileName">Loading...</h2>
+                        <p id="profileEmail">loading...</p>
+                        <div class="profile-meta">
+                            <span>Member since <span id="memberSince">...</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Repair -->
+            <div class="active-repair-section">
+                <span class="section-tag">// ACTIVE REPAIR</span>
+
+                <div id="noActiveRepair" style="display: none; margin-bottom: 3rem;">
+                    <div class="repair-card text-center" style="padding: 3rem;">
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: 1rem;">✨</span>
+                        <h3 style="margin-bottom: 1rem;">No Active Repairs</h3>
+                        <a href="service-request.html" class="btn btn-primary">Start New Repair</a>
+                    </div>
+                </div>
+
+                <div id="activeRepairCard" class="repair-card" style="display:none;">
+                    <div class="card-top">
+                        <div class="ticket-info">
+                            <span class="ticket-id" id="ticketId">...</span>
+                            <h3 id="deviceModel">...</h3>
+                            <div class="repair-status-badge">
+                                <span class="status-dot">●</span>
+                                In Progress
+                            </div>
+                        </div>
+                    </div>
+                    <div class="repair-details-grid">
+                        <div class="detail-item">
+                            <label>Issue</label>
+                            <p id="repairIssue">...</p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Received</label>
+                            <p id="receivedDate">...</p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Est. Date</label>
+                            <p id="estDate" style="color: var(--primary);">...</p>
+                        </div>
+                    </div>
+                    <!-- Progress Bar -->
+                    <div class="progress-tracker">
+                        <div class="progress-bar-bg"></div>
+                        <div class="progress-steps">
+                            <div class="progress-step completed">
+                                <div class="step-icon">1</div><span>Recvd</span>
+                            </div>
+                            <div class="progress-step active">
+                                <div class="step-icon">2</div><span>Diag</span>
+                            </div>
+                            <div class="progress-step">
+                                <div class="step-icon">3</div><span>Repair</span>
+                            </div>
+                            <div class="progress-step">
+                                <div class="step-icon">4</div><span>Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History -->
+            <div class="history-section" style="margin-top: 4rem;">
+                <div class="section-header">
+                    <span class="section-tag">// HISTORY LOG</span>
+                </div>
+                <div class="history-table-wrapper">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Device</th>
+                                <th>Issue</th>
+                                <th>Status</th>
+                                <th class="text-right">Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Init User Profile Mode
+            if (window.initUserProfilePage) window.initUserProfilePage();
+            else {
+                // Simple Fallback check
+                const user = DB.getCurrentUser();
+                if (!user) window.location.href = 'user-login.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

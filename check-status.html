@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Repair Status | Technoghar</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="circuit-bg"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-back-icon"
+                style="margin-right: 1rem; font-size: 1.5rem; color: var(--text-dark); text-decoration: none;">←</a>
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚙</span>
+                <span class="logo-text">TECHNO<span class="logo-accent">GHAR</span></span>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="check-status.html" class="nav-link active">Check Status</a></li>
+                <li><a href="service-request.html" class="nav-link nav-cta">Get Quote</a></li>
+                <li><a href="user-profile.html" class="nav-link" style="margin-left: 1rem;"><span
+                            style="font-size: 1.2rem;">👤</span></a></li>
+            </ul>
+
+            <button class="hamburger" id="hamburger">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="dashboard-hero">
+        <div class="container">
+            <div class="dashboard-header" style="justify-content: center; text-align: center;">
+                <div class="guest-welcome">
+                    <h1>Track Your Repair</h1>
+                    <p>Enter your unique Ticket ID to see real-time updates.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="dashboard-content">
+        <div class="container">
+
+            <!-- Search Section -->
+            <div id="guestSearchSection" class="guest-search-section" style="margin-bottom: 4rem;">
+                <div class="search-box-wrapper" style="max-width: 600px; margin: 0 auto; text-align: center;">
+                    <div class="form-group" style="display: flex; gap: 1rem;">
+                        <input type="text" id="ticketSearchInput" class="form-input"
+                            placeholder="Enter Ticket ID (e.g., TG-2024-892)" style="flex: 1;">
+                        <button class="btn btn-primary" onclick="trackTicket()">Track</button>
+                    </div>
+                </div>
+
+                <!-- Result Container -->
+                <div id="searchResult" style="display: none; margin-top: 3rem;">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <!-- Start Repair CTA -->
+            <div
+                style="text-align: center; margin-top: 5rem; padding-top: 3rem; border-top: 1px solid var(--border-light);">
+                <h3>Need another repair?</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">We can fix that too.</p>
+                <a href="service-request.html" class="btn btn-outline">Start New Service Request</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Technoghar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+    <script>
+        // Inline init for Check Status Mode
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure we are in "Status Mode"
+            if (window.initCheckStatusPage) window.initCheckStatusPage();
+        });
+    </script>
+</body>
+
+</html>
